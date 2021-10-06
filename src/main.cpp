@@ -19,9 +19,14 @@ int main(){
     mpu6050::calibrate(100);
     usleep(10000000);
     double data[6];
+    int i = 0;
     while(1) {
         mpu6050::read(data);
-        printf("[Output] %2.5f | %2.5f | %2.5f | %2.5f | %2.5f | %2.5f\n",data[0],data[1],data[2],data[3],data[4],data[5]);
+        if(i++ == 30){
+            i = 0;
+	        printf("[Output]  X Accl  |  Y Accl  |  Z Accl  |  X Gyro  |  Y Gyro  |  Z Gyro \n");
+        }
+        printf("[Output] %8.5f | %8.5f | %8.5f | %8.5f | %8.5f | %8.5f\n",data[0],data[1],data[2],data[3],data[4],data[5]);
 		
         usleep(100000);
     }
