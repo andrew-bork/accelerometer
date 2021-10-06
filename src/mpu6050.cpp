@@ -54,22 +54,27 @@ inline void debug2 (char*name, int reg){
 	printf("[DEBUG] Register %20s: Value of register %2x: %5d\n", name, reg, Read(reg));
 }
 
+inline void debug3(int val){
+	printf("[DEBUG] Changing value to %5d", val);
+}
+
 void mpu6050::print_debug(){
 	debug2("Pwr Mng 1",REG_PWR_MNG_1);
 	debug2("Cfg", REG_CFG);
 	debug2("Accl Cfg", REG_ACCL_CFG);
 	debug2("Gyro Cfg", REG_GYRO_CFG);
-	
+
 }
 
 void mpu6050::wake_up(){
-	Write(REG_PWR_MNG_1, Read(REG_PWR_MNG_1) | 0b01000000);
+	debug(0b01000000)
+	Write(REG_PWR_MNG_1, Read(REG_PWR_MNG_1) & (~0b01000000));
 	usleep(1000);
 	debug(REG_PWR_MNG_1);
 }
 
 void mpu6050::sleep(){
-	Write(REG_PWR_MNG_1, Read(REG_PWR_MNG_1) & (~0b01000000));
+	Write(REG_PWR_MNG_1, Read(REG_PWR_MNG_1) | 0b01000000);
 	usleep(1000);
 	debug(REG_PWR_MNG_1);
 }
