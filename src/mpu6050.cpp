@@ -154,23 +154,30 @@ void mpu6050::set_pwr_set(int set){
 
 }
 
+int handle_neg(int n){
+	if(n & 0x4000){
+		return -n&0x7FFF;
+	}
+	return n&0x7FFF;
+}
+
 void mpu6050::read_raw(int * data){
-	data[0] = (((int16_t) Read(OUT_XACCL_H)) << 8) | Read(OUT_XACCL_L);
-	data[1] = (((int16_t) Read(OUT_YACCL_H)) << 8) | Read(OUT_YACCL_L);
-	data[2] = (((int16_t) Read(OUT_ZACCL_H)) << 8) | Read(OUT_ZACCL_L);
-	data[3] = (((int16_t) Read(OUT_XGYRO_H)) << 8) | Read(OUT_XGYRO_L);
-	data[4] = (((int16_t) Read(OUT_YGYRO_H)) << 8) | Read(OUT_YGYRO_L);
-	data[5] = (((int16_t) Read(OUT_ZGYRO_H)) << 8) | Read(OUT_ZGYRO_L);
+	data[0] = handle_neg(Read(OUT_XACCL_H) << 8 | Read(OUT_XACCL_L));
+	data[1] = handle_neg(Read(OUT_YACCL_H) << 8 | Read(OUT_YACCL_L));
+	data[2] = handle_neg(Read(OUT_ZACCL_H) << 8 | Read(OUT_ZACCL_L));
+	data[3] = handle_neg(Read(OUT_XGYRO_H) << 8 | Read(OUT_XGYRO_L));
+	data[4] = handle_neg(Read(OUT_YGYRO_H) << 8 | Read(OUT_YGYRO_L));
+	data[5] = handle_neg(Read(OUT_ZGYRO_H) << 8 | Read(OUT_ZGYRO_L));
 }
 
 
 void mpu6050::read(double * data){
-	data[0] = ((double) (((((int16_t) Read(OUT_XACCL_H)) << 8) | Read(OUT_XACCL_L)) - offsets[0])) / accl_scale;
-	data[1] = ((double) (((((int16_t) Read(OUT_YACCL_H)) << 8) | Read(OUT_YACCL_L)) - offsets[1])) / accl_scale;
-	data[2] = ((double) (((((int16_t) Read(OUT_ZACCL_H)) << 8) | Read(OUT_ZACCL_L)) - offsets[2])) / accl_scale;
-	data[3] = ((double) (((((int16_t) Read(OUT_XGYRO_H)) << 8) | Read(OUT_XGYRO_L)) - offsets[3])) / gyro_scale;
-	data[4] = ((double) (((((int16_t) Read(OUT_YGYRO_H)) << 8) | Read(OUT_YGYRO_L)) - offsets[4])) / gyro_scale;
-	data[5] = ((double) (((((int16_t) Read(OUT_ZGYRO_H)) << 8) | Read(OUT_ZGYRO_L)) - offsets[5])) / gyro_scale;
+	data[0] = ((double) (handle_neg(Read(OUT_XACCL_H) << 8 | Read(OUT_XACCL_L)) - offsets[0]) / accl_scale;
+	data[1] = ((double) (handle_neg(Read(OUT_YACCL_H) << 8 | Read(OUT_YACCL_L)) - offsets[1]) / accl_scale;
+	data[2] = ((double) (handle_neg(Read(OUT_ZACCL_H) << 8 | Read(OUT_ZACCL_L)) - offsets[2]) / accl_scale;
+	data[3] = ((double) (handle_neg(Read(OUT_XGYRO_H) << 8 | Read(OUT_XGYRO_L)) - offsets[3]) / gyro_scale;
+	data[4] = ((double) (handle_neg(Read(OUT_YGYRO_H) << 8 | Read(OUT_YGYRO_L)) - offsets[4]) / gyro_scale;
+	data[5] = ((double) (handle_neg(Read(OUT_ZGYRO_H) << 8 | Read(OUT_ZGYRO_L)) - offsets[5]) / gyro_scale;
 }
 
 int mpu6050::query_register(int reg){
