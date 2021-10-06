@@ -14,9 +14,9 @@ int main(){
     mpu6050::wake_up();
     mpu6050::print_debug();
     float x,y,z;
-    double data[6];
+    int data[6];
     while(1){
-        mpu6050::read(data);
+        mpu6050::read_raw(data);
         std::cout<< data[0] << " " << data[1] << " " << data[2] << " " << data[3] << " " << data[4] << " " << data[5] << "\n";
         usleep(1000);
     }
