@@ -164,6 +164,8 @@ namespace gyro_range {
 	void set_dlpf_bandwidth(dlpf::dlpf set);
 	void set_fsync(fsync::fsync set);
 	
+	void set_offsets(int x_a, int y_a, int z_a, int x_g, int y_g, int z_g);
+
 	void read_raw(int * data);
 	void read_accl_raw(int * data);
 	void read_gyro_raw(int * data);

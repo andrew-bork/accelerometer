@@ -14,15 +14,15 @@ int main(){
     mpu6050::wake_up();
     mpu6050::print_debug();
     
-    mpu6050::calibrate(1000);
+    printf("[Output] Calibrating MPU6050\n");
+	printf("[Output] X Accl | Y Accl | Z Accl | X Gyro | Y Gyro | Z Gyro\n");
+    mpu6050::calibrate(100);
     usleep(10000000);
     double data[6];
     while(1) {
         mpu6050::read(data);
-	    printf("[Debug] Calibrating MPU6050\n");
-	    printf("[Debug] X Accl | Y Accl | Z Accl | X Gyro | Y Gyro | Z Gyro\n");
-        printf("[Debug] %6f | %6f | %6f | %6f | %6f | %6f\n",data[0],data[1],data[2],data[3],data[4],data[5]);
+        printf("[Output] %6f | %6f | %6f | %6f | %6f | %6f\n",data[0],data[1],data[2],data[3],data[4],data[5]);
 		
-        usleep(10000);
+        usleep(100000);
     }
 }
