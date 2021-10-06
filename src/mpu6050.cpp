@@ -47,7 +47,7 @@ void mpu6050::init(int addr){
 
 
 inline void debug (int reg){
-	printf("[DEBUG] Value of register %#2f: %5d\n", reg, Read(reg));
+	printf("[DEBUG] Value of register %2x: %5d\n", reg, Read(reg));
 }
 
 
