@@ -89,7 +89,12 @@
 #define OUT_ZGYRO_H 0x47
 #define OUT_ZGYRO_L 0x48
 
-
+#define X_ACCL_SHIFT 1265
+#define Y_ACCL_SHIFT 215
+#define Z_ACCL_SHIFT 1066
+#define X_GYRO_SHIFT 65437
+#define Y_GYRO_SHIFT 72
+#define Z_GYRO_SHIFT 2337
 
 
 namespace mpu6050 {
