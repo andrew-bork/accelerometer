@@ -14,13 +14,13 @@ int main(){
     mpu6050::wake_up();
     mpu6050::print_debug();
     float x,y,z;
-    int data[6];
-    int s_data[6];
+    double data[6];
+    double s_data[6];
     for(int i = 0; i<6;i++) s_data[i]=0;
     int n = 100;
     int i = n;
     while(i--){
-        mpu6050::read_raw(data);
+        mpu6050::read(data);
         std::cout<< data[0] << " " << data[1] << " " << data[2] << " " << data[3] << " " << data[4] << " " << data[5] << "\n";
         for(int i = 0; i < 6; i++)s_data[i]+=data[i];
         usleep(10000);
