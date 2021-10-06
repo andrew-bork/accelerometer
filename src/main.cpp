@@ -1,5 +1,7 @@
 #include <mpu6050.h>
 #include <unistd.h>
+#include <iostream>
+
 
 int main(){
     mpu6050::init();
