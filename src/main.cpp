@@ -13,19 +13,8 @@ int main(){
     mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_10);
     mpu6050::wake_up();
     mpu6050::print_debug();
-    float x,y,z;
-    double data[6];
-    double s_data[6];
-    for(int i = 0; i<6;i++) s_data[i]=0;
-    int n = 100;
-    int i = n;
-    while(i--){
-        mpu6050::read(data);
-        std::cout<< data[0] << " " << data[1] << " " << data[2] << " " << data[3] << " " << data[4] << " " << data[5] << "\n";
-        for(int i = 0; i < 6; i++)s_data[i]+=data[i];
-        usleep(10000);
-    }
-
-    std::cout<< "RESULTS: \n" << "Accel: " << s_data[0] / n << " " << s_data[1] / n << " " << s_data[2] / n <<"\nGyro: " << s_data[3] / n << " " << s_data[4] / n << " " << s_data[5] / n << "\n\n";
-
+    
+    mpu6050::calibrate(1000);
+    
+    mpu6050::sleep();
 }
