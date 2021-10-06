@@ -182,13 +182,13 @@ void mpu6050::set_register(int reg, int data){
 
 
 void mpu6050::calibrate(int n){
-	int i = n;
+	int j = n;
     int data[6];
     int s_data[6];
-	
+	for(int i = 0; i < 6; i++){s_data[i]=0;}
 	printf(			"[Debug] Calibrating MPU6050\n");
 	printf(			"[Debug] X Accl | Y Accl | Z Accl | X Gyro | Y Gyro | Z Gyro\n");
-	while(i--){
+	while(j--){
 		mpu6050::read_raw(data);
 		printf(	"[Debug] %6d | %6d | %6d | %6d | %6d | %6d\n",data[0],data[1],data[2],data[3],data[4],data[5]);
 		for(int i = 0; i < 6; i++){
