@@ -156,7 +156,7 @@ void mpu6050::set_pwr_set(int set){
 
 int handle_neg(int n){
 	if(n & 0x4000){
-		return -(~n + 1)&0x7FFF;
+		return -(n&0x7FFF);
 	}
 	return n&0x7FFF;
 }
