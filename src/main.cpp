@@ -14,8 +14,8 @@ int main(){
     mpu6050::wake_up();
     mpu6050::print_debug();
     float x,y,z;
-    float data[6];
-    float s_data[6];
+    double data[6];
+    double s_data[6];
     for(int i = 0; i<6;i++) s_data[i]=0;
     int n = 100;
     int i = n;
