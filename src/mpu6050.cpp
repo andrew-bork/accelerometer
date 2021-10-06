@@ -30,6 +30,8 @@ static int fd;
 
 void mpu6050::init(){init(MPU6050_DEFAULT_ADDR);}
 
+static int offsets[6];
+
 static int accl_scale = 16384;
 static double gyro_scale = 16.4;
 
@@ -43,6 +45,13 @@ void mpu6050::init(int addr){
 	if (status < 0) {
 		std::cout << "ERR (mpu6050.cpp:open()): Could not get I2C bus with " << addr << " address. Please confirm that this address is correct\n"; //Print error message
 	}
+	
+	offsets[0] = X_ACCL_SHIFT;
+	offsets[1] = Y_ACCL_SHIFT;
+	offsets[2] = Z_ACCL_SHIFT;
+	offsets[3] = X_GYRO_SHIFT;
+	offsets[4] = Y_GYRO_SHIFT;
+	offsets[5] = Z_GYRO_SHIFT;
 }
 
 
@@ -154,12 +163,12 @@ void mpu6050::read_raw(int * data){
 
 
 void mpu6050::read(double * data){
-	data[0] = ((double) ((Read(OUT_XACCL_H) << 8 | Read(OUT_XACCL_L)) - X_ACCL_SHIFT)) / accl_scale;
-	data[1] = ((double) ((Read(OUT_YACCL_H) << 8 | Read(OUT_YACCL_L)) - X_ACCL_SHIFT)) / accl_scale;
-	data[2] = ((double) ((Read(OUT_ZACCL_H) << 8 | Read(OUT_ZACCL_L)) - Z_ACCL_SHIFT)) / accl_scale;
-	data[3] = ((double) ((Read(OUT_XGYRO_H) << 8 | Read(OUT_XGYRO_L)) - X_GYRO_SHIFT)) / gyro_scale;
-	data[4] = ((double) ((Read(OUT_YGYRO_H) << 8 | Read(OUT_YGYRO_L)) - Y_GYRO_SHIFT)) / gyro_scale;
-	data[5] = ((double) ((Read(OUT_ZGYRO_H) << 8 | Read(OUT_ZGYRO_L)) - Z_GYRO_SHIFT)) / gyro_scale;
+	data[0] = ((double) ((Read(OUT_XACCL_H) << 8 | Read(OUT_XACCL_L)) - offsets[0])) / accl_scale;
+	data[1] = ((double) ((Read(OUT_YACCL_H) << 8 | Read(OUT_YACCL_L)) - offsets[1])) / accl_scale;
+	data[2] = ((double) ((Read(OUT_ZACCL_H) << 8 | Read(OUT_ZACCL_L)) - offsets[2])) / accl_scale;
+	data[3] = ((double) ((Read(OUT_XGYRO_H) << 8 | Read(OUT_XGYRO_L)) - offsets[3])) / gyro_scale;
+	data[4] = ((double) ((Read(OUT_YGYRO_H) << 8 | Read(OUT_YGYRO_L)) - offsets[4])) / gyro_scale;
+	data[5] = ((double) ((Read(OUT_ZGYRO_H) << 8 | Read(OUT_ZGYRO_L)) - offsets[5])) / gyro_scale;
 }
 
 int mpu6050::query_register(int reg){
@@ -179,7 +188,7 @@ void mpu6050::calibrate(int n){
 	printf(			"[Debug] X Accl | Y Accl | Z Accl | X Gyro | Y Gyro | Z Gyro\n");
 	while(i--){
 		mpu6050::read_raw(data);
-		printf(	"[Debug] %6d | %6d | %6d | %6d | %6d | %6d\n"data[0],data[1],data[2],data[3],data[4],data[5]):
+		printf(	"[Debug] %6d | %6d | %6d | %6d | %6d | %6d\n"data[0],data[1],data[2],data[3],data[4],data[5]);
 		for(int i = 0; i < 6; i++){
 			s_data[i]+=data[i];
 		}
