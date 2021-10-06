@@ -24,7 +24,7 @@ int main(){
         mpu6050::read(data);
         if(i++ == 30){
             i = 0;
-	        printf("[Output]  X Accl  |  Y Accl  |  Z Accl  |  X Gyro  |  Y Gyro  |  Z Gyro \n");
+	        printf("\n[Output]  X Accl  |  Y Accl  |  Z Accl  |  X Gyro  |  Y Gyro  |  Z Gyro \n");
         }
         printf("[Output] %8.5f | %8.5f | %8.5f | %8.5f | %8.5f | %8.5f\n",data[0],data[1],data[2],data[3],data[4],data[5]);
 		
