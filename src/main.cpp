@@ -15,10 +15,17 @@ int main(){
     mpu6050::print_debug();
     float x,y,z;
     int data[6];
-    while(1){
+    int s_data[6];
+    for(int i = 0; i<6;i++) s_data[i]=0;
+    int n = 1000;
+    int i = n;
+    while(i--){
         mpu6050::read_raw(data);
         std::cout<< data[0] << " " << data[1] << " " << data[2] << " " << data[3] << " " << data[4] << " " << data[5] << "\n";
+        for(int i = 0; i < 6; i++)s_data[i]+=data[i];
         usleep(1000);
     }
+
+    std::cout<< "RESULTS: \n" << "Accel: " << s_data[0] / n << " " << s_data[1] / n << " " << s_data[2] / n <<"\nGyro: " << s_data[3] / n << " " << s_data[4] / n << " " << s_data[5] << "\n\n";
 
 }
