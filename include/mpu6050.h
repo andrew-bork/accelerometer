@@ -175,6 +175,8 @@ namespace gyro_range {
 	int query_register(int reg);
 	void set_register(int reg, int data);
 
+	void calibrate(int n);
+
 	void print_debug();
 
 	void destroy();

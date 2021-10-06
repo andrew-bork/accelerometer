@@ -26,6 +26,6 @@ int main(){
         usleep(10000);
     }
 
-    std::cout<< "RESULTS: \n" << "Accel: " << s_data[0] / n << " " << s_data[1] / n << " " << s_data[2] / n <<"\nGyro: " << s_data[3] / n << " " << s_data[4] / n << " " << s_data[5] << "\n\n";
+    std::cout<< "RESULTS: \n" << "Accel: " << s_data[0] / n << " " << s_data[1] / n << " " << s_data[2] / n <<"\nGyro: " << s_data[3] / n << " " << s_data[4] / n << " " << s_data[5] / n << "\n\n";
 
 }
