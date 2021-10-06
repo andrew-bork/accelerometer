@@ -8,4 +8,4 @@ all: accel
 
 accel: 
 	mkdir -p bin
-	g++ main/main.cpp ${SRCS} -o bin/drone ${OPTS}
+	g++ ${SRCS} -o bin/drone ${OPTS}
