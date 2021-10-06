@@ -67,7 +67,6 @@ void mpu6050::print_debug(){
 }
 
 void mpu6050::wake_up(){
-	debug(0b01000000)
 	Write(REG_PWR_MNG_1, Read(REG_PWR_MNG_1) & (~0b01000000));
 	usleep(1000);
 	debug(REG_PWR_MNG_1);
