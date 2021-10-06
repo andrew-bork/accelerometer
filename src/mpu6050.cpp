@@ -188,7 +188,7 @@ void mpu6050::calibrate(int n){
 	printf(			"[Debug] X Accl | Y Accl | Z Accl | X Gyro | Y Gyro | Z Gyro\n");
 	while(i--){
 		mpu6050::read_raw(data);
-		printf(	"[Debug] %6d | %6d | %6d | %6d | %6d | %6d\n"data[0],data[1],data[2],data[3],data[4],data[5]);
+		printf(	"[Debug] %6d | %6d | %6d | %6d | %6d | %6d\n",data[0],data[1],data[2],data[3],data[4],data[5]);
 		for(int i = 0; i < 6; i++){
 			s_data[i]+=data[i];
 		}
