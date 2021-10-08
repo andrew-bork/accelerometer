@@ -2,10 +2,10 @@ SRCS:=${wildcard src/*.cpp}
 
 OPTS:= -Iinclude -pthread -lpthread -L../lib -li2c -std=c++11
 
-.PHONY: accel
+.PHONY: calib
 
-all: accel
+all: calib
 
-accel: 
+calib: 
 	mkdir -p bin
-	g++ ${SRCS} -o bin/drone ${OPTS}
+	g++ ./test/calib.cpp ${SRCS} -o bin/calib ${OPTS}
