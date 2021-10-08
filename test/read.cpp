@@ -24,7 +24,9 @@ int main(){
         euler_v = math::vector(data[3]*0.001, data[4]*0.001, data[5]*0.001);
         euler_q = math::quarternion::fromEuler(euler_v);
         rotation = rotation * euler_q;
-        printf("%f %f %f %f %f %f\n",data[0],data[1],data[2],data[3],data[4],data[5]);
+        euler_glob = math::quarternion::toEuler(rotation);
+
+        printf("%4.8f %4.8f %4.8f\n", euler_glob.x, euler_glob.y, euler_glob.z);
 		
         usleep(1000);
     }
