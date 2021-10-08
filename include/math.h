@@ -10,6 +10,7 @@ namespace math{
         vector(double x, double y, double z);
 
         vector operator+ (const vector& r);
+        vector operator* (const double& s);
     };
 
     struct quarternion{

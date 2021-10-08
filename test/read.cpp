@@ -1,6 +1,7 @@
 #include <mpu6050.h>
 #include <unistd.h>
 #include <iostream>
+#include <math.h>
 
 
 int main(){
@@ -12,14 +13,19 @@ int main(){
     mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_10);
     mpu6050::wake_up();
 
-    mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68)
+    mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68);
 
+    math::quarternion rotation, euler_q;
+    math::vector euler_glob, euler_v;
     double data[6];
     int i = 0;
     while(1) {
         mpu6050::read(data);
+        euler_v = math::vector(data[3]*0.001, data[4]*0.001, data[5]*0.001);
+        euler_q = math::quarternion::fromEuler(euler_v);
+        rotation = rotation * euler_q;
         printf("%f %f %f %f %f %f\n",data[0],data[1],data[2],data[3],data[4],data[5]);
 		
-        usleep(100000);
+        usleep(1000);
     }
 }

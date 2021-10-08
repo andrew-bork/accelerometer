@@ -126,3 +126,8 @@ math::vector math::vector::operator+ (const math::vector& r){
     vector res(x+r.x,y+r.y,z+r.z);
     return res;
 }
+
+math::vector math::vector::operator*(const double& s){
+    vector res(x*s, y*s, z*s);
+    return res;
+}
