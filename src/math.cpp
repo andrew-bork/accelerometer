@@ -93,9 +93,9 @@ math::quarternion math::quarternion::fromEuler(const math::vector& euler){
     double theta = length(euler);
     quarternion res;
     res.w = cos(theta/2);
-    res.x = axis.x*sin(theta/2)/theta;
-    res.y = axis.y*sin(theta/2)/theta;
-    res.z = axis.z*sin(theta/2)/theta;
+    res.x = euler.x*sin(theta/2)/theta;
+    res.y = euler.y*sin(theta/2)/theta;
+    res.z = euler.z*sin(theta/2)/theta;
     return res;
 }
 
@@ -118,5 +118,6 @@ math::vector::vector (double xa, double ya, double za){
 }
 
 math::vector math::vector::operator+ (const math::vector& r){
-    return vector::vector(x+r.x,y+r.y,z+r.z);
+    vector res(x+r.x,y+r.y,z+r.z);
+    return res;
 }
