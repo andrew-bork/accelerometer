@@ -28,6 +28,7 @@ namespace math{
         static quarternion conjugate(const quarternion& n);
         static quarternion rotate(double theta, const vector& axis);
         static quarternion fromEuler(const vector& euler);
+        static vector toEuler(const quarternion& q);
     };
     double length(const quarternion& n);
     double length(const vector& n);

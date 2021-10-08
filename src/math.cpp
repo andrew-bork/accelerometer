@@ -72,7 +72,7 @@ double math::length(const math::vector& v){
 math::quarternion math::quarternion::inverse(const math::quarternion& q){
     double len;
     if(q.unit) len = 1;
-    else len = length(q)s;
+    else len = length(q);
     quarternion res;
     res.w = q.w;
     res.x = -q.x;
@@ -96,6 +96,11 @@ math::quarternion math::quarternion::fromEuler(const math::vector& euler){
     res.x = euler.x*sin(theta/2)/theta;
     res.y = euler.y*sin(theta/2)/theta;
     res.z = euler.z*sin(theta/2)/theta;
+    return res;
+}
+
+math::vector math::quarternion::toEuler(const math::quarternion& q){
+    vector res(atan2(2*(q.w*w.x+q.y*q.z), 1 - 2* (q.x*q.x + q.y*q.y)), asin(2*(q.w*q.y - q.z*q.x)), atan2(2*(q.w*q.z+q.x*q.y), 1 - 2 * (q.y*q.y+q.z*q.z)));
     return res;
 }
 
