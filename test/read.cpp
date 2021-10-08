@@ -15,7 +15,7 @@ int main(){
 
     mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68);
 
-    math::quarternion rotation, euler_q;
+    math::quarternion rotation(1,0,0,0), euler_q;
     math::vector euler_glob, euler_v;
     double data[6];
     int i = 0;
@@ -26,7 +26,7 @@ int main(){
         rotation = rotation * euler_q;
         euler_glob = math::quarternion::toEuler(rotation);
 
-        printf("%4.8f %4.8f %4.8f\n", euler_glob.x, euler_glob.y, euler_glob.z);
+        printf("%12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n",euler_v.x,euler_v.y, euler_v.z, euler_glob.x, euler_glob.y, euler_glob.z);
 		
         usleep(1000);
     }
