@@ -1,5 +1,9 @@
 #ifndef MATH_H
 #define MATH_H
+
+#define DEG_TO_RAD 0.017453292519943
+#define RAD_TO_DEG 57.29577951308232
+
 namespace math{
 
     struct vector{
