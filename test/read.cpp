@@ -12,7 +12,7 @@ int main(){
     mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_10);
     mpu6050::wake_up();
 
-    mpu6050::set_offsets(649, 122, -1279, -172, 118, 97);
+    mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68)
 
     double data[6];
     int i = 0;

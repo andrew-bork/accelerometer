@@ -2,9 +2,13 @@ SRCS:=${wildcard src/*.cpp}
 
 OPTS:= -Iinclude -pthread -lpthread -L../lib -li2c -std=c++11
 
-.PHONY: calib
+.PHONY: calib read
 
-all: calib
+all: calib read
+
+read: 
+	mkdir -p bin
+	g++ ./test/read.cpp ${SRCS} -o bin/read ${OPTS}
 
 calib: 
 	mkdir -p bin
