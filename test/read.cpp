@@ -24,7 +24,7 @@ int main(){
         euler_v = math::vector(data[3]*0.001*DEG_TO_RAD, data[4]*0.001*DEG_TO_RAD, data[5]*0.001*DEG_TO_RAD);
         euler_q = math::quarternion::fromEuler(euler_v);
         rotation = rotation * euler_q;
-        euler_glob = math::quarternion::toEuler(rotation);
+        euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));
 
         printf("%12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n",euler_v.x*RAD_TO_DEG,euler_v.y*RAD_TO_DEG, euler_v.z*RAD_TO_DEG, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
 		
