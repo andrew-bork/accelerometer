@@ -21,12 +21,12 @@ int main(){
     int i = 0;
     while(1) {
         mpu6050::read(data);
-        euler_v = math::vector(data[3]*0.001, data[4]*0.001, data[5]*0.001);
+        euler_v = math::vector(data[3]*0.001*DEG_TO_RAD, data[4]*0.001*DEG_TO_RAD, data[5]*0.001*DEG_TO_RAD);
         euler_q = math::quarternion::fromEuler(euler_v);
         rotation = rotation * euler_q;
         euler_glob = math::quarternion::toEuler(rotation);
 
-        printf("%12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n",euler_v.x,euler_v.y, euler_v.z, euler_glob.x, euler_glob.y, euler_glob.z);
+        printf("%12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n",euler_v.x*RAD_TO_DEG,euler_v.y*RAD_TO_DEG, euler_v.z*RAD_TO_DEG, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
 		
         usleep(1000);
     }
