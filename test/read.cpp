@@ -47,6 +47,9 @@ void thread() {
 }
 
 int main(){
+
+    std::thread socket_thread(thread);
+
     mpu6050::init();
     mpu6050::set_accl_set(mpu6050::accl_range::g_2);
     mpu6050::set_gyro_set(mpu6050::gyro_range::deg_250);
