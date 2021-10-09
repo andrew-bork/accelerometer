@@ -11,10 +11,11 @@ int main(){
     mpu6050::set_gyro_set(mpu6050::gyro_range::deg_250);
     mpu6050::set_clk(mpu6050::clk::x_gyro);
     mpu6050::set_fsync(mpu6050::fsync::input_dis);
-    mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_184);
+    mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_44);
     mpu6050::wake_up();
 
-    mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68);
+    mpu6050::set_offsets(1360, -158, -1345, -199, 138, 72);
+    //mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68);
 
     math::quarternion rotation(1,0,0,0), euler_q;
     math::vector euler_glob, euler_v;
