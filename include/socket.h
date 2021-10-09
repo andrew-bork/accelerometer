@@ -48,11 +48,11 @@ namespace sock{
         int unixBind(const char* path);
         int listen(int backlog);
 
-        socket::un_connection un_accept();
-        socket::in_connection in_accept();
+        un_connection un_accept();
+        in_connection in_accept();
     
-        socket::un_connection un_connect(const char* path);
-        socket::in_connection in_connect(int addr, int port);
+        un_connection un_connect(const char* path);
+        in_connection in_connect(int addr, int port);
     };
 }
 #endif
