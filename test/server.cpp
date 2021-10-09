@@ -4,7 +4,7 @@
 
 int main(){
 
-    sock::socket server(sock::unix, sock::udp);
+    sock::socket server(sock::unix, sock::tcp);
     if(server.fd < 0){
         return -1;
     }
