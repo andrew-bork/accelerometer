@@ -2,6 +2,8 @@
 #define SOCKET_H
 
 #include <sys/socket.h>
+#include <netinet/in.h>
+
 
 namespace sock{
     namespace sock_domain{

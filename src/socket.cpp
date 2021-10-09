@@ -1,6 +1,8 @@
 #include <socket.h>
 #include <cstdio>
 #include <stdlib.h>
+#include <cstring>
+#include <sys/un.h>
 
 sock::socket::socket(sock_domain::sock_domain domain, sock_type::sock_type type){
     fd = socket((int) domain, (int) type, 0);
@@ -33,7 +35,8 @@ int sock::socket::inBind(int addr, int port){
     address.sin_family = AF_NET;
     address.sin_addr.s_addr = addr;
     address.sin_port = htons(port);
-    int e = bind(fd, (sockaddr *) &_address, sizeof(_address));
+    int len = sizeof(address);
+    int e = bind(fd, (sockaddr *) &address, (socklen_t *) &len);
     if(e<0){
         printf("Failed to bind.\n");
     }
@@ -44,7 +47,8 @@ int sock::socket::unixBind(char* path){
     sockaddr_un address;
     address.sun_family = AF_UNIX;
     strcpy(address.sun_path, path);
-    int e = bind(fd, (sockaddr *) &_address, sizeof(_address));
+    int len = sizeof(address);
+    int e = bind(fd, (sockaddr *) &address, (socklen_t *) &len);
     if(e<0){
         printf("Failed to bind.\n");
     }
