@@ -133,28 +133,28 @@ inline int _send(int fd, char * n, int l){
 }
 
 int sock::socket::un_connection::read(char * buffer, int len){
-    int e = read(fd, buffer, len);
+    int e = _read(fd, buffer, len);
     if(e<0){
         printf("Error reading!\n");
     }
     return e;
 }
 int sock::socket::un_connection::send(const char * buffer, int len){
-    int e = send(fd, buffer, len);
+    int e = _send(fd, buffer, len);
     if(e<0){
         printf("Error sending!\n");
     }
     return e;
 }
 int sock::socket::in_connection::read(char * buffer, int len){
-    int e = read(fd, buffer, len);
+    int e = _read(fd, buffer, len);
     if(e<0){
         printf("Error reading!\n");
     }
     return e;
 }
 int sock::socket::in_connection::send(const char * buffer, int len){
-    int e = send(fd, buffer, len);
+    int e = _send(fd, buffer, len);
     if(e<0){
         printf("Error sending!\n");
     }
