@@ -25,7 +25,7 @@ int main(){
     while(1) {
         usleep(10000);
         now = std::chrono::steady_clock::now();
-        double dt = std::chrono::duration_cast<chrono::seconds>(now - then).count();
+        double dt = std::chrono::duration_cast<std::chrono::seconds>(now - then).count();
         then = now;
         mpu6050::read(data);
         euler_v = math::vector(data[3]*dt*DEG_TO_RAD, data[4]*dt*DEG_TO_RAD, data[5]*dt*DEG_TO_RAD);
