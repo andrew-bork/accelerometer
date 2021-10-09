@@ -45,7 +45,9 @@ int main(){
     mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_5);
     mpu6050::wake_up();
 
-    mpu6050::set_offsets(1360, -158, -1345, -199, 138, 72);
+    mpu6050::set_offsets(1457, 100, -1336, -201, 128, 76)
+    //mpu6050::set_offsets(1441, 87, -1340, -197, 149, 78)
+    //mpu6050::set_offsets(1360, -158, -1345, -199, 138, 72);
     //mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68);
 
     math::quarternion rotation(1,0,0,0), euler_q;
