@@ -47,6 +47,7 @@ server.listen(port, () => {
     })
     client.on("data", (data) => {
         lastSensorOutput = data.toString().split(" ");
+        console.log(lastSensorOutput);
         io.emit("sensor", lastSensorOutput);
     });
     // process.stdin.resume();
