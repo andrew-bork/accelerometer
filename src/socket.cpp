@@ -1,0 +1,71 @@
+#include <socket.h>
+#include <cstdio>
+#include <stdlib.h>
+
+sock::socket::socket(sock_domain::sock_domain domain, sock_type::sock_type type){
+    fd = socket((int) domain, (int) type, 0);
+    opened = false;
+    addr = 0;
+    port = 0;
+}
+
+
+
+inline int _bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen){
+    return bind(sockfd, const struct sockaddr *addr, socklen_t addrlen);
+}
+
+inline int _listen(int sockfd, int back){
+    return listen(sockfd, back);
+}
+
+inline int _accept(int fd, sockaddr *addr, socklen_t *addrlen){
+    return accept(fd, (sockaddr *)&addr, )
+}
+
+
+int sock::socket::setSocketOption(int lvl, int opt, const void * optval, socklen_t optlen){
+    return setsockopt(fd,lvl, opt, &optval, sizeof(optval));
+}
+
+int sock::socket::inBind(int addr, int port){
+    sockaddr_in address;
+    address.sin_family = AF_NET;
+    address.sin_addr.s_addr = addr;
+    address.sin_port = htons(port);
+    int e = bind(fd, (sockaddr *) &_address, sizeof(_address));
+    if(e<0){
+        printf("Failed to bind.\n");
+    }
+    return e;
+}
+
+int sock::socket::unixBind(char* path){
+    sockaddr_un address;
+    address.sun_family = AF_UNIX;
+    strcpy(address.sun_path, path);
+    int e = bind(fd, (sockaddr *) &_address, sizeof(_address));
+    if(e<0){
+        printf("Failed to bind.\n");
+    }
+    return e;
+}
+
+int sock::socket::listen(int backlog){
+    int e = _listen(fd, backlog);
+    if(e<0){
+        printf("Failed to listen.\n");
+    }
+    return e;
+}
+
+sock::socket::connection sock::socket::accept(){
+    connection c;
+    c.s = this;
+    c.fd = _accept(fd, &c.addr, sizeof(c.addr));
+    c.valid = c.fd<0;
+    if(!c.valid){
+        printf("Failed to accept.\n");
+    }
+    return c;
+}
