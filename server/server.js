@@ -2,6 +2,8 @@
 const http = require("http");
 const express = require("express");
 const fs = require("fs");
+const net = require("net");
+
 const app = express();
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -37,18 +39,28 @@ server.listen(port, () => {
 
     var lastSensorOutput = [];
 
-    process.stdin.resume();
-    process.stdin.setEncoding('utf8');
-    process.stdin.on("data", function(chunk) {
-        const lines = chunk.toString("utf8").split("\n");
-        // console.log(chunk);
-        // console.log(lines);
-        lastSensorOutput = lines[lines.length - 2].split(" ");
-        //console.log(lastSensorOutput);
+    var client = net.connect({
+        path: "/run/test"
+    })
+    client.on("connect", () => {
+        client.write("SUCCESS-NODE");
+    })
+    client.on("data", (data) => {
+        lastSensorOutput = data.toString().split(" ");
         io.emit("sensor", lastSensorOutput);
     });
+    // process.stdin.resume();
+    // process.stdin.setEncoding('utf8');
+    // process.stdin.on("data", function(chunk) {
+    //     const lines = chunk.toString("utf8").split("\n");
+    //     // console.log(chunk);
+    //     // console.log(lines);
+    //     lastSensorOutput = lines[lines.length - 2].split(" ");
+    //     //console.log(lastSensorOutput);
+    //     io.emit("sensor", lastSensorOutput);
+    // });
 
-    io.on("connection", (socket) => {
-        console.log('socket conected');
-    });
+    // io.on("connection", (socket) => {
+    //     console.log('socket conected');
+    // });
 });
