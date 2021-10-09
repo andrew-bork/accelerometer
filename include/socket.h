@@ -24,7 +24,7 @@ namespace sock{
             sockaddr_un addr;
             int fd;
             int read(char * buffer, int len);
-            int send(char * buffer, int len);
+            int send(const char * buffer, int len);
         };
         struct in_connection{
             socket * s;
@@ -32,7 +32,7 @@ namespace sock{
             sockaddr_in addr;
             int fd;
             int read(char * buffer, int len);
-            int send(char * buffer, int len);
+            int send(const char * buffer, int len);
         };
         int fd;
         int addr;

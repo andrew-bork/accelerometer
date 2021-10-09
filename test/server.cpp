@@ -18,10 +18,10 @@ int main(){
     }
 
     sock::socket::un_connection unix_connection = server.un_accept();
-    char * msg = "Hello World!\n";
+    const char * msg = "Hello World!\n";
     unix_connection.send(msg, strlen(msg));
 
-    
+
 
 
 

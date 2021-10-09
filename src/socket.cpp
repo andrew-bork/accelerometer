@@ -122,6 +122,16 @@ sock::socket::un_connection sock::socket::un_connect(char * path){
 }
 
 
+
+inline int _read(int fd, char * n, int l){
+    return read(fd, n, l);
+}
+
+
+inline int _send(int fd, char * n, int l){
+    return send(fd, n, l);
+}
+
 int sock::socket::un_connection::read(char * buffer, int len){
     int e = read(fd, buffer, len);
     if(e<0){
@@ -129,7 +139,7 @@ int sock::socket::un_connection::read(char * buffer, int len){
     }
     return e;
 }
-int sock::socket::un_connection::send(char * buffer, int len){
+int sock::socket::un_connection::send(const char * buffer, int len){
     int e = send(fd, buffer, len);
     if(e<0){
         printf("Error sending!\n");
@@ -143,7 +153,7 @@ int sock::socket::in_connection::read(char * buffer, int len){
     }
     return e;
 }
-int sock::socket::in_connection::send(char * buffer, int len){
+int sock::socket::in_connection::send(const char * buffer, int len){
     int e = send(fd, buffer, len);
     if(e<0){
         printf("Error sending!\n");
