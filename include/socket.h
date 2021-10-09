@@ -45,8 +45,12 @@ namespace sock{
         int inBind(int addr, int port);
         int unixBind(char* path);
         int listen(int backlog);
+
         socket::un_connection un_accept();
         socket::in_connection in_accept();
+    
+        socket::un_connection un_connect(char* path);
+        socket::in_connection in_connect(int addr, int port);
     };
 }
 #endif
