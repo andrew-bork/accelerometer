@@ -33,9 +33,9 @@ function connect(){
 
     socket.on("sensor", (output) => {
         console.log(output);
-        rotation.r = parseFloat(output[0])*deg_t_rad;
-        rotation.p = parseFloat(output[1])*deg_t_rad;
-        rotation.y = parseFloat(output[2])*deg_t_rad;
+        rotation.r = parseFloat(output[0]);
+        rotation.p = parseFloat(output[1]);
+        rotation.y = parseFloat(output[2]);
     })
 }
 
