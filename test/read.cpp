@@ -27,7 +27,7 @@ void thread() {
     char recv[1024];
 
     while(1){
-        sprintf(recv, "%d %f %f %f", , euler_glob.x, euler_glob.y, euler_glob.z);
+        sprintf(recv, "%d %f %f %f", t_since, euler_glob.x, euler_glob.y, euler_glob.z);
         unix_connection.send(recv,strlen(recv));
         usleep(10000);
     }
@@ -69,7 +69,7 @@ int main(){
         rotation = rotation * euler_q;
 
         euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));
-        printf("%f %f %f\n",euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
+        printf("%d %f %f %f\n", t_since, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
 		
     }
 }
