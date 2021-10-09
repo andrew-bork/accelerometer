@@ -44,13 +44,13 @@ namespace sock{
 
         int setSocketOption(int lvl, int opt, const void * optval, socklen_t optlen);
         int inBind(int addr, int port);
-        int unixBind(char* path);
+        int unixBind(const char* path);
         int listen(int backlog);
 
         socket::un_connection un_accept();
         socket::in_connection in_accept();
     
-        socket::un_connection un_connect(char* path);
+        socket::un_connection un_connect(const char* path);
         socket::in_connection in_connect(int addr, int port);
     };
 }
