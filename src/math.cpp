@@ -91,6 +91,10 @@ math::quarternion math::quarternion::rotate(double theta, const math::vector& ax
 
 math::quarternion math::quarternion::fromEuler(const math::vector& euler){
     double theta = length(euler);
+    if(theta < 0.00001){
+        quarternion res(1,0,0,0);
+        return res;
+    }
     quarternion res;
     res.w = cos(theta/2);
     res.x = euler.x*sin(theta/2)/theta;
