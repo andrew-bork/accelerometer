@@ -3,7 +3,48 @@
 #include <iostream>
 #include <math.h>
 #include <chrono>
+#include <socket.h>
+#include <thread>
+#include <cstdio>
+#include <cstdlib>
 
+math::vector euler_glob;
+
+void exit(){
+    if(remove("/run/test") < 0){
+        perror("Couldn't cleanup /run/test");
+    }
+}
+
+
+void thread() {
+    
+    std::atexit(exit);
+
+    sock::socket server(sock::unix, sock::tcp);
+    if(server.fd < 0){
+        return -1;
+    }
+
+    if(server.unixBind("/run/test") < 0){
+        return -2;
+    }
+
+    if(server.listen(10) < 0){
+        return -3;
+    }
+
+    sock::un_connection unix_connection = server.un_accept();
+    char recv[1024];
+    unix_connection.read(recv, 1024);
+
+
+    while(1){
+        sprintf(recv, "%f %f %f", euler_glob.x, euler_glob.y, euler_glob.z);
+        unix_connection.send(recv,strlen(recv));
+        usleep(10000);
+    }
+}
 
 int main(){
     mpu6050::init();
@@ -18,7 +59,7 @@ int main(){
     //mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68);
 
     math::quarternion rotation(1,0,0,0), euler_q;
-    math::vector euler_glob, euler_v;
+    math::vector euler_v;
     double data[6];
     int i = 0;
     auto then = std::chrono::steady_clock::now();
