@@ -21,13 +21,14 @@ int main(){
     double data[6];
     int i = 0;
     auto then = std::chrono::steady_clock::now();
-    auto now;
+    auto now = std::chrono::steady_clock::now();;
     while(1) {
         usleep(10000);
         now = std::chrono::steady_clock::now();
-        double dt = chrono::duration_cast<chrono::seconds>(end - start).count();
+        double dt = std::chrono::duration_cast<chrono::seconds>(now - then).count();
+        then = now;
         mpu6050::read(data);
-        euler_v = math::vector(data[3]*0.01*DEG_TO_RAD, data[4]*0.01*DEG_TO_RAD, data[5]*0.01*DEG_TO_RAD);
+        euler_v = math::vector(data[3]*dt*DEG_TO_RAD, data[4]*dt*DEG_TO_RAD, data[5]*dt*DEG_TO_RAD);
         euler_q = math::quarternion::fromEuler(euler_v);
         rotation = euler_q * rotation;
 
