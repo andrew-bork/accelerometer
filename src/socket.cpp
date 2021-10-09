@@ -67,8 +67,20 @@ int sock::socket::listen(int backlog){
     return e;
 }
 
-sock::socket::connection sock::socket::accept(){
-    connection c;
+sock::socket::connection sock::socket::un_accept(){
+    un_connection c;
+    c.s = this;
+    int len = sizeof(c.addr);
+    c.fd = _accept(fd, &c.addr, (socklen_t *) &len);
+    c.valid = c.fd<0;
+    if(!c.valid){
+        printf("Failed to accept.\n");
+    }
+    return c;
+}
+
+sock::socket::connection sock::socket::in_accept(){
+    in_connection c;
     c.s = this;
     int len = sizeof(c.addr);
     c.fd = _accept(fd, &c.addr, (socklen_t *) &len);

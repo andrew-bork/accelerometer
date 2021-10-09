@@ -17,10 +17,18 @@ namespace sock{
         };
     };
     struct socket{
-        struct connection{
+        struct un_connection{
             socket * s;
             bool valid;
-            sockaddr addr;
+            sockaddr_un addr;
+            int fd;
+            int read(char * buffer, int len);
+            int send(char * buffer, int len);
+        };
+        struct in_connection{
+            socket * s;
+            bool valid;
+            sockaddr_in addr;
             int fd;
             int read(char * buffer, int len);
             int send(char * buffer, int len);
@@ -29,6 +37,7 @@ namespace sock{
         int addr;
         int port;
         bool opened;
+        //sock_domain::sock_domain domain;
 
         socket(sock_domain::sock_domain domain, sock_type::sock_type type);
 
@@ -36,7 +45,8 @@ namespace sock{
         int inBind(int addr, int port);
         int unixBind(char* path);
         int listen(int backlog);
-        socket::connection accept();
+        socket::un_connection un_accept();
+        socket::in_connection in_accept();
     };
 }
 #endif
