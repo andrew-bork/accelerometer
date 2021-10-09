@@ -47,7 +47,7 @@ int sock::socket::inBind(int addr, int port){
     return e;
 }
 
-int sock::socket::unixBind(char* path){
+int sock::socket::unixBind(const char* path){
     sockaddr_un address;
     address.sun_family = AF_UNIX;
     strcpy(address.sun_path, path);
@@ -108,13 +108,13 @@ sock::socket::in_connection sock::socket::in_connect(int addr, int port){
 
 }
 
-sock::socket::un_connection sock::socket::un_connect(char * path){
+sock::socket::un_connection sock::socket::un_connect(const char * path){
     un_connection c;
     c.addr.sun_family = AF_UNIX;
     strcpy(c.addr.sun_path, path);
     int len = sizeof(c.addr);
     c.fd = connect(fd, (sockaddr *) &c.addr, len);
-    c.valid = c.fd<0;
+    c.valid = c.fd>0;
     if(!c.valid){
         perror("Failed to connect.\n");
     }
