@@ -67,7 +67,7 @@ int sock::socket::listen(int backlog){
     return e;
 }
 
-sock::socket::connection sock::socket::un_accept(){
+sock::socket::un_connection sock::socket::un_accept(){
     un_connection c;
     c.s = this;
     int len = sizeof(c.addr);
@@ -79,8 +79,11 @@ sock::socket::connection sock::socket::un_accept(){
     return c;
 }
 
-sock::socket::connection sock::socket::in_accept(){
+sock::socket::in_connection sock::socket::in_accept(){
     in_connection c;
+    c.addr.sin_family = AF_INET;
+    c.addr.sin_addr.s_addr = addr;
+    c.addr.sin_port = htons(port);
     c.s = this;
     int len = sizeof(c.addr);
     c.fd = _accept(fd, &c.addr, (socklen_t *) &len);
@@ -89,4 +92,33 @@ sock::socket::connection sock::socket::in_accept(){
         printf("Failed to accept.\n");
     }
     return c;
+}
+
+sock::socket::in_connection sock::socket::in_connect(int addr, int port){
+    un_connection c;
+    c.s = this;
+    c.addr.sun_family = AF_UNIX;
+    strcpy(c.addr.sun_path, path);
+    int len = sizeof(c.addr);
+    c.fd = connect(fd, (sockaddr *) &c.addr, len);
+    c.valid = c.fd<0;
+    if(!c.valid){
+        printf("Failed to connect.\n");
+    }
+    return c;
+
+}
+
+sock::socket::un_connection sock::socket::un_connection(char * path){
+    un_connection c;
+    c.addr.sun_family = AF_UNIX;
+    strcpy(c.addr.sun_path, path);
+    int len = sizeof(c.addr);
+    c.fd = connect(fd, (sockaddr *) &c.addr, len);
+    c.valid = c.fd<0;
+    if(!c.valid){
+        printf("Failed to connect.\n");
+    }
+    return c;
+}
 }
