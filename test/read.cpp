@@ -45,7 +45,7 @@ int main(){
     mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_5);
     mpu6050::wake_up();
 
-    mpu6050::set_offsets(1345, 75, -1362, -100, 68, 40);
+    mpu6050::set_offsets(1350, 62, -1366, -199, 139, 81);
     //mpu6050::set_offsets(1441, 87, -1340, -197, 149, 78)
     //mpu6050::set_offsets(1360, -158, -1345, -199, 138, 72);
     //mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68);
@@ -58,7 +58,7 @@ int main(){
     auto start = then;
     auto now = std::chrono::steady_clock::now();
     while(1) {
-        usleep(500);
+        usleep(250);
         mpu6050::read(data);
         now = std::chrono::steady_clock::now();
         double dt = std::chrono::duration_cast<std::chrono::milliseconds>(now - then).count() * 0.001;
