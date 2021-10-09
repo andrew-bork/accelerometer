@@ -2,7 +2,7 @@ SRCS:=${wildcard src/*.cpp}
 
 OPTS:= -Iinclude -pthread -lpthread -L../lib -li2c -std=c++11
 
-.PHONY: calib read
+.PHONY: calib read server client
 
 all: calib read
 
