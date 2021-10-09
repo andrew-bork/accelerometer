@@ -10,8 +10,9 @@ int main(){
     }
 
     sock::socket::un_connection unix_connection = client.un_connect("/run/test");
+    char *msg = "SUCCESS";
+    unix_connection.send(msg, strlen(msg));
     char buf[1024];
-
     unix_connection.read(buf, 1024);
     printf("%s\n", buf);
 

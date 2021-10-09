@@ -18,7 +18,10 @@ int main(){
     }
 
     sock::socket::un_connection unix_connection = server.un_accept();
-    const char * msg = "Hello World!\n";
+    char recv[1024];
+    unix_connection.read(recv, 1024);
+    printf("Recieved: %s\n", recv);
+    const char * msg = "Hello World!";
     unix_connection.send(msg, strlen(msg));
 
 
