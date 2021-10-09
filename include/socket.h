@@ -17,23 +17,24 @@ namespace sock{
         reuse_addr = SO_REUSEADDR,
         reuse_port = SO_REUSEPORT
     };
+    struct socket;
+    struct un_connection{
+        socket * s;
+        bool valid;
+        sockaddr_un addr;
+        int fd;
+        int read(char * buffer, int len);
+        int send(const char * buffer, int len);
+    };
+    struct in_connection{
+        socket * s;
+        bool valid;
+        sockaddr_in addr;
+        int fd;
+        int read(char * buffer, int len);
+        int send(const char * buffer, int len);
+    };
     struct socket{
-        struct un_connection{
-            socket * s;
-            bool valid;
-            sockaddr_un addr;
-            int fd;
-            int read(char * buffer, int len);
-            int send(const char * buffer, int len);
-        };
-        struct in_connection{
-            socket * s;
-            bool valid;
-            sockaddr_in addr;
-            int fd;
-            int read(char * buffer, int len);
-            int send(const char * buffer, int len);
-        };
         int fd;
         int addr;
         int port;

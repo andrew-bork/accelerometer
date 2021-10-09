@@ -17,7 +17,7 @@ int main(){
         return -3;
     }
 
-    sock::socket::un_connection unix_connection = server.un_accept();
+    sock::un_connection unix_connection = server.un_accept();
     char recv[1024];
     unix_connection.read(recv, 1024);
     printf("Recieved: %s\n", recv);

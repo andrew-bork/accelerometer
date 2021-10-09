@@ -67,31 +67,31 @@ int sock::socket::listen(int backlog){
     return e;
 }
 
-sock::socket::un_connection sock::socket::un_accept(){
+sock::un_connection sock::socket::un_accept(){
     un_connection c;
     c.s = this;
     int len = sizeof(c.addr);
     c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t *) &len);
-    c.valid = c.fd>0;
+    c.valid = c.fd>=0;
     if(!c.valid){
         perror("Failed to accept.\n");
     }
     return c;
 }
 
-sock::socket::in_connection sock::socket::in_accept(){
+sock::in_connection sock::socket::in_accept(){
     in_connection c;
     c.s = this;
     int len = sizeof(c.addr);
     c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t *) &len);
-    c.valid = c.fd>0;
+    c.valid = c.fd>=0;
     if(!c.valid){
         perror("Failed to accept.\n");
     }
     return c;
 }
 
-sock::socket::in_connection sock::socket::in_connect(int addr, int port){
+sock::in_connection sock::socket::in_connect(int addr, int port){
     in_connection c;
     c.s = this;
     c.addr.sin_family = AF_INET;
@@ -99,8 +99,8 @@ sock::socket::in_connection sock::socket::in_connect(int addr, int port){
     c.addr.sin_port = htons(port);
     c.s = this;
     int len = sizeof(c.addr);
-    c.fd = connect(fd, (sockaddr *) &c.addr,(socklen_t)len);
-    c.valid = c.fd>0;
+    c.valid = connect(fd, (sockaddr *) &c.addr, len) >= 0;
+    c.fd = fd;
     if(!c.valid){
         perror("Failed to connect.\n");
     }
@@ -108,13 +108,13 @@ sock::socket::in_connection sock::socket::in_connect(int addr, int port){
 
 }
 
-sock::socket::un_connection sock::socket::un_connect(const char * path){
+sock::un_connection sock::socket::un_connect(const char * path){
     un_connection c;
     c.addr.sun_family = AF_UNIX;
     strcpy(c.addr.sun_path, path);
     int len = sizeof(c.addr);
-    c.fd = connect(fd, (sockaddr *) &c.addr, len);
-    c.valid = c.fd>0;
+    c.valid = connect(fd, (sockaddr *) &c.addr, len) >= 0;
+    c.fd = fd;
     if(!c.valid){
         perror("Failed to connect.\n");
     }
@@ -132,28 +132,28 @@ inline int _send(int fd, const char * n, int l, int f){
     return send(fd, n, l, f);
 }
 
-int sock::socket::un_connection::read(char * buffer, int len){
+int sock::un_connection::read(char * buffer, int len){
     int e = _read(fd, buffer, len);
     if(e<0){
         perror("Error reading!\n");
     }
     return e;
 }
-int sock::socket::un_connection::send(const char * buffer, int len){
+int sock::un_connection::send(const char * buffer, int len){
     int e = _send(fd, buffer, len, 0);
     if(e<0){
         perror("Error sending!\n");
     }
     return e;
 }
-int sock::socket::in_connection::read(char * buffer, int len){
+int sock::in_connection::read(char * buffer, int len){
     int e = _read(fd, buffer, len);
     if(e<0){
         perror("Error reading!\n");
     }
     return e;
 }
-int sock::socket::in_connection::send(const char * buffer, int len){
+int sock::in_connection::send(const char * buffer, int len){
     int e = _send(fd, buffer, len, 0);
     if(e<0){
         perror("Error sending!\n");

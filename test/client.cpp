@@ -9,7 +9,7 @@ int main(){
         return -1;
     }
 
-    sock::socket::un_connection unix_connection = client.un_connect("/run/test");
+    sock::un_connection unix_connection = client.un_connect("/run/test");
     char *msg = "SUCCESS";
     unix_connection.send(msg, strlen(msg));
     char buf[1024];
