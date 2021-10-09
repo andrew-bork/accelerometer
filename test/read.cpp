@@ -66,7 +66,7 @@ int main(){
         then = now;
         euler_v = math::vector(data[3]*dt*DEG_TO_RAD, data[4]*dt*DEG_TO_RAD, data[5]*dt*DEG_TO_RAD);
         euler_q = math::quarternion::fromEuler(euler_v);
-        rotation = euler_q*rotation;
+        rotation = rotation * euler_q;
 
         euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));
         printf("%d %f %f %f\n", t_since, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
