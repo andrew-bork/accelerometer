@@ -7,5 +7,5 @@ client.on("connect", () => {
     client.write("SUCCESS-NODE");
 })
 client.on("data", (data) => {
-    console.log(data);
+    console.log(data.toString());
 });
