@@ -9,13 +9,13 @@ namespace sock{
     namespace sock_domain{
         enum sock_domain {
             unix = AF_UNIX, inet=AF_INET
-        }
-    }
+        };
+    };
     namespace sock_type {
         enum sock_type {
             TCP=SOCK_STREAM, UDP=SOCK_DGRAM
-        }
-    }
+        };
+    };
     struct socket{
         struct connection{
             socket * s;

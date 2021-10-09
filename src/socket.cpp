@@ -22,7 +22,7 @@ inline int _listen(int sockfd, int back){
 }
 
 inline int _accept(int fd, sockaddr *addr, socklen_t *addrlen){
-    return accept(fd, (sockaddr *)&addr, )
+    return accept(fd, addr, addrlen);
 }
 
 
