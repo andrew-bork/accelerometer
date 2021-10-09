@@ -16,7 +16,7 @@ void exit(){
     }
 }
 
-
+int t_since;
 void thread() {
     
     std::atexit(exit);
@@ -27,7 +27,7 @@ void thread() {
     char recv[1024];
 
     while(1){
-        sprintf(recv, "%f %f %f", euler_glob.x, euler_glob.y, euler_glob.z);
+        sprintf(recv, "%d %f %f %f", , euler_glob.x, euler_glob.y, euler_glob.z);
         unix_connection.send(recv,strlen(recv));
         usleep(10000);
     }
@@ -55,12 +55,14 @@ int main(){
     double data[6];
     int i = 0;
     auto then = std::chrono::steady_clock::now();
-    auto now = std::chrono::steady_clock::now();;
+    auto start = then;
+    auto now = std::chrono::steady_clock::now();
     while(1) {
         usleep(500);
         mpu6050::read(data);
         now = std::chrono::steady_clock::now();
         double dt = std::chrono::duration_cast<std::chrono::milliseconds>(now - then).count() * 0.001;
+        t_since = std::chrono::duration_cast<std::chrono::milliseconds> (now-start);
         then = now;
         euler_v = math::vector(data[3]*dt*DEG_TO_RAD, data[4]*dt*DEG_TO_RAD, data[5]*dt*DEG_TO_RAD);
         euler_q = math::quarternion::fromEuler(euler_v);
