@@ -21,23 +21,10 @@ void thread() {
     
     std::atexit(exit);
 
-    sock::socket server(sock::unix, sock::tcp);
-    if(server.fd < 0){
-        return;
-    }
+    sock::socket client(sock::unix, sock::tcp);
 
-    if(server.unixBind("/run/test") < 0){
-        return;
-    }
-
-    if(server.listen(10) < 0){
-        return;
-    }
-
-    sock::un_connection unix_connection = server.un_accept();
+    sock::un_connection unix_connection = client.un_connect("/run/test");
     char recv[1024];
-    unix_connection.read(recv, 1024);
-
 
     while(1){
         sprintf(recv, "%f %f %f", euler_glob.x, euler_glob.y, euler_glob.z);
@@ -75,7 +62,7 @@ int main(){
         then = now;
         euler_v = math::vector(data[3]*dt*DEG_TO_RAD, data[4]*dt*DEG_TO_RAD, data[5]*dt*DEG_TO_RAD);
         euler_q = math::quarternion::fromEuler(euler_v);
-        rotation = euler_q * rotation;
+        rotation = rotation * euler_q;
 
         euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));
         printf("%f %f %f\n",euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);

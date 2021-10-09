@@ -99,7 +99,7 @@ function main(){
         const model = glMatrix.mat4.create();
         const view = glMatrix.mat4.create();
         const modelViewMatrix = glMatrix.mat4.create();
-        const axis = glMatrix.vec3.fromValues(rotation.r, rotation.p, rotation.y);
+        const axis = glMatrix.vec3.fromValues(rotation.p, rotation.y, rotation.r);
         const length = glMatrix.vec3.length(axis);
         if(length > 0){
             glMatrix.vec3.scale(axis, axis, 1/length);
