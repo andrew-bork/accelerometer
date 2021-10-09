@@ -4,8 +4,12 @@
 #include <cstring>
 #include <sys/un.h>
 
+inline int _socket(int d, int t, int p){
+    return socket(d, t, p);
+}
+
 sock::socket::socket(sock_domain::sock_domain domain, sock_type::sock_type type){
-    fd = socket((int) domain, (int) type, 0);
+    fd = _socket((int) domain, (int) type, 0);
     opened = false;
     addr = 0;
     port = 0;
