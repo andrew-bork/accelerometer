@@ -23,7 +23,7 @@ int main(){
     auto then = std::chrono::steady_clock::now();
     auto now = std::chrono::steady_clock::now();;
     while(1) {
-        usleep(1000);
+        usleep(100);
         now = std::chrono::steady_clock::now();
         double dt = std::chrono::duration_cast<std::chrono::milliseconds>(now - then).count() * 0.001;
         then = now;
