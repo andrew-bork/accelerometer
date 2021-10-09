@@ -13,3 +13,10 @@ read:
 calib: 
 	mkdir -p bin
 	g++ ./test/calib.cpp ${SRCS} -o bin/calib ${OPTS}
+
+server:
+	mkdir -p bin
+	g++ ./test/server.cpp ${SRCS} -o bin/server ${OPTS}
+client:
+	mkdir -p bin
+	g++ ./test/client.cpp ${SRCS} -o bin/client ${OPTS}

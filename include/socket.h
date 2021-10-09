@@ -7,15 +7,15 @@
 
 
 namespace sock{
-    namespace sock_domain{
-        enum sock_domain {
-            unix = AF_UNIX, inet=AF_INET
-        };
+    enum sock_domain {
+        unix = AF_UNIX, inet=AF_INET
     };
-    namespace sock_type {
-        enum sock_type {
-            TCP=SOCK_STREAM, UDP=SOCK_DGRAM
-        };
+    enum sock_type {
+        tcp=SOCK_STREAM, udp=SOCK_DGRAM
+    };
+    enum sock_opt {
+        reuse_addr = SO_REUSEADDR,
+        reuse_port = SO_REUSEPORT
     };
     struct socket{
         struct un_connection{
@@ -40,7 +40,7 @@ namespace sock{
         bool opened;
         //sock_domain::sock_domain domain;
 
-        socket(sock_domain::sock_domain domain, sock_type::sock_type type);
+        socket(sock_domain domain, sock_type type);
 
         int setSocketOption(int lvl, int opt, const void * optval, socklen_t optlen);
         int inBind(int addr, int port);

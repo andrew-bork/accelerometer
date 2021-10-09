@@ -8,7 +8,7 @@ inline int _socket(int d, int t, int p){
     return socket(d, t, p);
 }
 
-sock::socket::socket(sock_domain::sock_domain domain, sock_type::sock_type type){
+sock::socket::socket(sock_domain domain, sock_type type){
     fd = _socket((int) domain, (int) type, 0);
     opened = false;
     addr = 0;
@@ -119,4 +119,34 @@ sock::socket::un_connection sock::socket::un_connect(char * path){
         printf("Failed to connect.\n");
     }
     return c;
+}
+
+
+int sock::socket::un_connection::read(char * buffer, int len){
+    int e = read(fd, buffer, len);
+    if(e<0){
+        printf("Error reading!\n");
+    }
+    return e;
+}
+int sock::socket::un_connection::send(char * buffer, int len){
+    int e = send(fd, buffer, len);
+    if(e<0){
+        printf("Error sending!\n");
+    }
+    return e;
+}
+int sock::socket::in_connection::read(char * buffer, int len){
+    int e = read(fd, buffer, len);
+    if(e<0){
+        printf("Error reading!\n");
+    }
+    return e;
+}
+int sock::socket::in_connection::send(char * buffer, int len){
+    int e = send(fd, buffer, len);
+    if(e<0){
+        printf("Error sending!\n");
+    }
+    return e;
 }
