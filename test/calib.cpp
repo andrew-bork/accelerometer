@@ -16,7 +16,7 @@ int main(){
     
     printf("[Output] Calibrating MPU6050\n");
 	printf("[Output]  X Accl  |  Y Accl  |  Z Accl  |  X Gyro  |  Y Gyro  |  Z Gyro \n");
-    mpu6050::calibrate(100);
+    mpu6050::calibrate(2000);
     usleep(10000000);
     double data[6];
     int i = 0;
