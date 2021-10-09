@@ -81,12 +81,9 @@ sock::socket::un_connection sock::socket::un_accept(){
 
 sock::socket::in_connection sock::socket::in_accept(){
     in_connection c;
-    c.addr.sin_family = AF_INET;
-    c.addr.sin_addr.s_addr = addr;
-    c.addr.sin_port = htons(port);
     c.s = this;
     int len = sizeof(c.addr);
-    c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t) len);
+    c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t *) &len);
     c.valid = c.fd<0;
     if(!c.valid){
         printf("Failed to accept.\n");
@@ -95,10 +92,12 @@ sock::socket::in_connection sock::socket::in_accept(){
 }
 
 sock::socket::in_connection sock::socket::in_connect(int addr, int port){
-    un_connection c;
+    in_connection c;
     c.s = this;
-    c.addr.sun_family = AF_UNIX;
-    strcpy(c.addr.sun_path, path);
+    c.addr.sin_family = AF_INET;
+    c.addr.sin_addr.s_addr = addr;
+    c.addr.sin_port = htons(port);
+    c.s = this;
     int len = sizeof(c.addr);
     c.fd = connect(fd, (sockaddr *) &c.addr,(socklen_t)len);
     c.valid = c.fd<0;
@@ -109,7 +108,7 @@ sock::socket::in_connection sock::socket::in_connect(int addr, int port){
 
 }
 
-sock::socket::un_connection sock::socket::un_connection(char * path){
+sock::socket::un_connection sock::socket::un_connect(char * path){
     un_connection c;
     c.addr.sun_family = AF_UNIX;
     strcpy(c.addr.sun_path, path);
