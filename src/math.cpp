@@ -100,7 +100,14 @@ math::quarternion math::quarternion::fromEuler(const math::vector& euler){
 }
 
 math::vector math::quarternion::toEuler(const math::quarternion& q){
-    vector res(atan2(2*(q.w*q.x+q.y*q.z), 1 - 2* (q.x*q.x + q.y*q.y)), asin(2*(q.w*q.y - q.z*q.x)), atan2(2*(q.w*q.z+q.x*q.y), 1 - 2 * (q.y*q.y+q.z*q.z)));
+    double  sin_p = 2*(q.w*q.y - q.z*q.x);
+    if(sin_p >=1){
+    vector res(0, 1.570796326794897, -2*atan2(q.x, q.w));
+    }else if(sin_p <= -1){
+    vector res(0, -1.570796326794897, -2 *atan2(q.x, q.w));
+    }
+    //asin(2*(q.w*q.y - q.z*q.x));
+    vector res(atan2(2*(q.w*q.x+q.y*q.z), 1 - 2* (q.x*q.x + q.y*q.y)), asin(sin_p), atan2(2*(q.w*q.z+q.x*q.y), 1 - 2 * (q.y*q.y+q.z*q.z)));
     return res;
 }
 
