@@ -1,8 +1,17 @@
 #include <socket.h>
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
+
+void exit(){
+    if(remove("/run/test") < 0){
+        perror("Couldn't cleanup /run/test");
+    }
+}
 
 int main(){
+
+    std::atexit(exit);
 
     sock::socket server(sock::unix, sock::tcp);
     if(server.fd < 0){
