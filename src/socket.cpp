@@ -32,11 +32,11 @@ int sock::socket::setSocketOption(int lvl, int opt, const void * optval, socklen
 
 int sock::socket::inBind(int addr, int port){
     sockaddr_in address;
-    address.sin_family = AF_NET;
+    address.sin_family = AF_INET;
     address.sin_addr.s_addr = addr;
     address.sin_port = htons(port);
     int len = sizeof(address);
-    int e = bind(fd, (sockaddr *) &address, (socklen_t *) &len);
+    int e = bind(fd, (sockaddr *) &address, len);
     if(e<0){
         printf("Failed to bind.\n");
     }
@@ -47,8 +47,7 @@ int sock::socket::unixBind(char* path){
     sockaddr_un address;
     address.sun_family = AF_UNIX;
     strcpy(address.sun_path, path);
-    int len = sizeof(address);
-    int e = bind(fd, (sockaddr *) &address, (socklen_t *) &len);
+    int e = bind(fd, (sockaddr *) &address, len);
     if(e<0){
         printf("Failed to bind.\n");
     }
@@ -66,7 +65,8 @@ int sock::socket::listen(int backlog){
 sock::socket::connection sock::socket::accept(){
     connection c;
     c.s = this;
-    c.fd = _accept(fd, &c.addr, sizeof(c.addr));
+    int len = sizeof(c.addr);
+    c.fd = _accept(fd, &c.addr, (socklen_t *) &len);
     c.valid = c.fd<0;
     if(!c.valid){
         printf("Failed to accept.\n");
