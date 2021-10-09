@@ -41,8 +41,8 @@ server.listen(port, () => {
     process.stdin.setEncoding('utf8');
     process.stdin.on("data", function(chunk) {
         const lines = chunk.toString("utf8").split("\n");
-        // console.log(chunk);
-        // console.log(lines);
+        console.log(chunk);
+        console.log(lines);
         lastSensorOutput = lines[lines.length - 1].split(" ");
         io.emit("sensor", lastSensorOutput);
     });
