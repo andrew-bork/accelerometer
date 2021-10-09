@@ -1,7 +1,7 @@
 
 
 
-
+const deg_t_rad = 0.017453292519943;
 
 var width=700, height=700;
 var canvas;
@@ -12,11 +12,37 @@ function resize(w,h){
     canvas.height = height = h;
 }
 
+var rotation = {r:0, p:0, y:0};
+
 
 var buffers = [];
 
 function initBuffers(){
     buffers.push(Mesh.cube(gl, 1));
+}
+
+
+var socket;
+
+function connect(){
+    if(!socket)
+        socket = io("http://192.168.86.127:80/");
+    socket.on("connect", () => {
+
+    });
+
+    socket.on("sensor", (output) => {
+        console.log(output);
+        rotation.r = parseFloat(output[0])*deg_t_rad;
+        rotation.p = parseFloat(output[1])*deg_t_rad;
+        rotation.y = parseFloat(output[2])*deg_t_rad;
+    })
+}
+
+function disconnect(){
+    if(socket)
+        socket.disconnect();
+    socket = null;
 }
 
 
@@ -65,22 +91,30 @@ function main(){
                         zNear,
                         zFar);
 
+
         
+
         // Set the drawing position to the "identity" point, which is
         // the center of the scene.
         const model = glMatrix.mat4.create();
         const view = glMatrix.mat4.create();
         const modelViewMatrix = glMatrix.mat4.create();
+        const axis = glMatrix.vec3.fromValues(rotation.r, rotation.p, rotation.y);
+        const length = glMatrix.vec3.length(axis);
+        if(length > 0){
+            glMatrix.vec3.scale(axis, axis, 1/length);
+            glMatrix.mat4.fromRotation(model, length, axis);
+        }
         glMatrix.mat4.translate(view,     // destination matrix
             view,     // matrix to translate
             [-0.0, 0.0, -6.0]);
         glMatrix.mat4.rotateX(view, view, Math.PI/4);
 
 
-        glMatrix.mat4.rotateX(model,model,theta/3);
+        //glMatrix.mat4.rotateX(model,model,theta/3);
             
         //glMatrix.mat4.mul(modelViewMatrix, view, model);
-        glMatrix.mat4.rotateY(view, view, theta/4);
+        //glMatrix.mat4.rotateY(view, view, theta/4);
 
 
 

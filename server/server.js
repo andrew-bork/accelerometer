@@ -44,7 +44,7 @@ server.listen(port, () => {
         // console.log(chunk);
         // console.log(lines);
         lastSensorOutput = lines[lines.length - 2].split(" ");
-        console.log(lastSensorOutput);
+        //console.log(lastSensorOutput);
         io.emit("sensor", lastSensorOutput);
     });
 
