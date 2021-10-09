@@ -14,7 +14,7 @@ sock::socket::socket(sock_domain::sock_domain domain, sock_type::sock_type type)
 
 
 inline int _bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen){
-    return bind(sockfd, const struct sockaddr *addr, socklen_t addrlen);
+    return bind(sockfd, addr, addrlen);
 }
 
 inline int _listen(int sockfd, int back){
@@ -47,6 +47,7 @@ int sock::socket::unixBind(char* path){
     sockaddr_un address;
     address.sun_family = AF_UNIX;
     strcpy(address.sun_path, path);
+    int len = sizeof(address);
     int e = bind(fd, (sockaddr *) &address, len);
     if(e<0){
         printf("Failed to bind.\n");

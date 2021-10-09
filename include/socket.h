@@ -30,7 +30,7 @@ namespace sock{
         int port;
         bool opened;
 
-        socket(sock_domain::sock_domain domain, sock_type::sock_type type, int protocol);
+        socket(sock_domain::sock_domain domain, sock_type::sock_type type);
 
         int setSocketOption(int lvl, int opt, const void * optval, socklen_t optlen);
         int inBind(int addr, int port);
