@@ -23,15 +23,15 @@ void thread() {
 
     sock::socket server(sock::unix, sock::tcp);
     if(server.fd < 0){
-        return -1;
+        return;
     }
 
     if(server.unixBind("/run/test") < 0){
-        return -2;
+        return;
     }
 
     if(server.listen(10) < 0){
-        return -3;
+        return;
     }
 
     sock::un_connection unix_connection = server.un_accept();
