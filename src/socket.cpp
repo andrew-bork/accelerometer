@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <stdlib.h>
 #include <cstring>
-#include <sys/un.h>
+#include <unistd.h>
 
 inline int _socket(int d, int t, int p){
     return socket(d, t, p);
@@ -128,8 +128,8 @@ inline int _read(int fd, char * n, int l){
 }
 
 
-inline int _send(int fd, char * n, int l){
-    return send(fd, n, l);
+inline int _send(int fd, const char * n, int l, int f){
+    return send(fd, n, l, f);
 }
 
 int sock::socket::un_connection::read(char * buffer, int len){
@@ -140,7 +140,7 @@ int sock::socket::un_connection::read(char * buffer, int len){
     return e;
 }
 int sock::socket::un_connection::send(const char * buffer, int len){
-    int e = _send(fd, buffer, len);
+    int e = _send(fd, buffer, len, 0);
     if(e<0){
         printf("Error sending!\n");
     }
@@ -154,7 +154,7 @@ int sock::socket::in_connection::read(char * buffer, int len){
     return e;
 }
 int sock::socket::in_connection::send(const char * buffer, int len){
-    int e = _send(fd, buffer, len);
+    int e = _send(fd, buffer, len, 0);
     if(e<0){
         printf("Error sending!\n");
     }
