@@ -72,7 +72,7 @@ sock::socket::un_connection sock::socket::un_accept(){
     c.s = this;
     int len = sizeof(c.addr);
     c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t *) &len);
-    c.valid = c.fd<0;
+    c.valid = c.fd>0;
     if(!c.valid){
         perror("Failed to accept.\n");
     }
@@ -84,7 +84,7 @@ sock::socket::in_connection sock::socket::in_accept(){
     c.s = this;
     int len = sizeof(c.addr);
     c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t *) &len);
-    c.valid = c.fd<0;
+    c.valid = c.fd>0;
     if(!c.valid){
         perror("Failed to accept.\n");
     }
@@ -100,7 +100,7 @@ sock::socket::in_connection sock::socket::in_connect(int addr, int port){
     c.s = this;
     int len = sizeof(c.addr);
     c.fd = connect(fd, (sockaddr *) &c.addr,(socklen_t)len);
-    c.valid = c.fd<0;
+    c.valid = c.fd>0;
     if(!c.valid){
         perror("Failed to connect.\n");
     }
