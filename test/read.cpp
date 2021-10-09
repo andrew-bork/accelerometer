@@ -62,7 +62,7 @@ int main(){
         mpu6050::read(data);
         now = std::chrono::steady_clock::now();
         double dt = std::chrono::duration_cast<std::chrono::milliseconds>(now - then).count() * 0.001;
-        t_since = std::chrono::duration_cast<std::chrono::milliseconds> (now-start);
+        t_since = std::chrono::duration_cast<std::chrono::milliseconds> (now-start).count();
         then = now;
         euler_v = math::vector(data[3]*dt*DEG_TO_RAD, data[4]*dt*DEG_TO_RAD, data[5]*dt*DEG_TO_RAD);
         euler_q = math::quarternion::fromEuler(euler_v);
