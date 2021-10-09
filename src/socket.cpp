@@ -54,7 +54,7 @@ int sock::socket::unixBind(char* path){
     int len = sizeof(address);
     int e = bind(fd, (sockaddr *) &address, len);
     if(e<0){
-        printf("Failed to bind.\n");
+        perror("Failed to bind.\n");
     }
     return e;
 }
@@ -62,7 +62,7 @@ int sock::socket::unixBind(char* path){
 int sock::socket::listen(int backlog){
     int e = _listen(fd, backlog);
     if(e<0){
-        printf("Failed to listen.\n");
+        perror("Failed to listen.\n");
     }
     return e;
 }
@@ -74,7 +74,7 @@ sock::socket::un_connection sock::socket::un_accept(){
     c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t *) &len);
     c.valid = c.fd<0;
     if(!c.valid){
-        printf("Failed to accept.\n");
+        perror("Failed to accept.\n");
     }
     return c;
 }
@@ -86,7 +86,7 @@ sock::socket::in_connection sock::socket::in_accept(){
     c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t *) &len);
     c.valid = c.fd<0;
     if(!c.valid){
-        printf("Failed to accept.\n");
+        perror("Failed to accept.\n");
     }
     return c;
 }
@@ -102,7 +102,7 @@ sock::socket::in_connection sock::socket::in_connect(int addr, int port){
     c.fd = connect(fd, (sockaddr *) &c.addr,(socklen_t)len);
     c.valid = c.fd<0;
     if(!c.valid){
-        printf("Failed to connect.\n");
+        perror("Failed to connect.\n");
     }
     return c;
 
@@ -116,7 +116,7 @@ sock::socket::un_connection sock::socket::un_connect(char * path){
     c.fd = connect(fd, (sockaddr *) &c.addr, len);
     c.valid = c.fd<0;
     if(!c.valid){
-        printf("Failed to connect.\n");
+        perror("Failed to connect.\n");
     }
     return c;
 }
