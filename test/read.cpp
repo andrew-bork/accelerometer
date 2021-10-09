@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <math.h>
+#include <chrono>
 
 
 int main(){
@@ -19,15 +20,19 @@ int main(){
     math::vector euler_glob, euler_v;
     double data[6];
     int i = 0;
+    auto then = std::chrono::steady_clock::now();
+    auto now;
     while(1) {
+        usleep(10000);
+        now = std::chrono::steady_clock::now();
+        double dt = chrono::duration_cast<chrono::seconds>(end - start).count();
         mpu6050::read(data);
         euler_v = math::vector(data[3]*0.01*DEG_TO_RAD, data[4]*0.01*DEG_TO_RAD, data[5]*0.01*DEG_TO_RAD);
         euler_q = math::quarternion::fromEuler(euler_v);
         rotation = euler_q * rotation;
-        euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));
 
-        printf("%12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n",euler_v.x*RAD_TO_DEG,euler_v.y*RAD_TO_DEG, euler_v.z*RAD_TO_DEG, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
+        euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));
+        printf("%4.2f %12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n",dt, euler_v.x*RAD_TO_DEG,euler_v.y*RAD_TO_DEG, euler_v.z*RAD_TO_DEG, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
 		
-        usleep(10000);
     }
 }
