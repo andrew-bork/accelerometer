@@ -10,7 +10,7 @@ int main(){
     }
 
     sock::socket::un_connection unix_connection = client.un_connect("/run/test");
-    char * buf[1024];
+    char buf[1024];
 
     unix_connection.read(buf, 1024);
     printf("%s\n", buf);
