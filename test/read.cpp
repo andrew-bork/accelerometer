@@ -34,7 +34,7 @@ int main(){
         rotation = rotation * euler_q;
 
         euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));
-        printf("%5.4f %12.8f %12.8f %12.8f %12.8f %12.8f %12.8f\n",dt, euler_v.x*RAD_TO_DEG,euler_v.y*RAD_TO_DEG, euler_v.z*RAD_TO_DEG, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
+        printf("%f %f %f\n",euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
 		
     }
 }
