@@ -71,7 +71,7 @@ sock::socket::un_connection sock::socket::un_accept(){
     un_connection c;
     c.s = this;
     int len = sizeof(c.addr);
-    c.fd = _accept(fd, &c.addr, (socklen_t *) &len);
+    c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t *) &len);
     c.valid = c.fd<0;
     if(!c.valid){
         printf("Failed to accept.\n");
@@ -86,7 +86,7 @@ sock::socket::in_connection sock::socket::in_accept(){
     c.addr.sin_port = htons(port);
     c.s = this;
     int len = sizeof(c.addr);
-    c.fd = _accept(fd, &c.addr, (socklen_t *) &len);
+    c.fd = _accept(fd, (sockaddr *)&c.addr, (socklen_t) len);
     c.valid = c.fd<0;
     if(!c.valid){
         printf("Failed to accept.\n");
@@ -100,7 +100,7 @@ sock::socket::in_connection sock::socket::in_connect(int addr, int port){
     c.addr.sun_family = AF_UNIX;
     strcpy(c.addr.sun_path, path);
     int len = sizeof(c.addr);
-    c.fd = connect(fd, (sockaddr *) &c.addr, len);
+    c.fd = connect(fd, (sockaddr *) &c.addr,(socklen_t)len);
     c.valid = c.fd<0;
     if(!c.valid){
         printf("Failed to connect.\n");
