@@ -90,11 +90,6 @@ math::quarternion math::quarternion::rotate(double theta, const math::vector& ax
 }
 
 math::quarternion math::quarternion::fromEulerZYX(const math::vector& euler){
-    double theta = length(euler);
-    if(theta < 0.00001){
-        quarternion res(1,0,0,0);
-        return res;
-    }
 
     double cy = cos(euler.z*0.5);
     double sy = cos(euler.z*0.5);
