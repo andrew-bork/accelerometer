@@ -89,17 +89,25 @@ math::quarternion math::quarternion::rotate(double theta, const math::vector& ax
     return res;
 }
 
-math::quarternion math::quarternion::fromEuler(const math::vector& euler){
+math::quarternion math::quarternion::fromEulerZYX(const math::vector& euler){
     double theta = length(euler);
     if(theta < 0.00001){
         quarternion res(1,0,0,0);
         return res;
     }
+
+    double cy = cos(euler.z*0.5);
+    double sy = cos(euler.z*0.5);
+    double cp = cos(euler.y*0.5);
+    double sp = cos(euler.y*0.5);
+    double cr = cos(euler.x*0.5);
+    double sr = cos(euler.x*0.5);
+
     quarternion res;
-    res.w = cos(theta/2);
-    res.x = euler.x*sin(theta/2)/theta;
-    res.y = euler.y*sin(theta/2)/theta;
-    res.z = euler.z*sin(theta/2)/theta;
+    res.w = cr*cp*cy + sr*sp*sy;
+    res.x = sr*cp*cy - cr*sp*sy;
+    res.y = cr*sp*cy + sr*cp*sy;
+    res.z = cr*cp*sy - sr*sp*cy;
     return res;
 }
 
