@@ -124,6 +124,10 @@ math::vector math::quarternion::toMagAxis(const math::quarternion& q){
     double s = 1 - q.w*q.w;
     double mag = acos(q.w)*2;
 
+    if(q.w > -0.00001 && q.w < 0.00001){
+        vector res(0,0,0);
+        return res;
+    }
     vector res(q.x/s*mag, q.y/s*mag,q.z/s*mag);
     return res;
 }
