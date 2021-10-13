@@ -69,7 +69,7 @@ int main(){
         rotation = euler_q*rotation;
 
         euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));
-        printf("%d %f %f %f\n", t_since, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
+        printf("%d %7.4f %7.4f %7.4f %7.4f %7.4f %7.4f\n", t_since,euler_v.x,euler_v.y,euler_v.z, euler_glob.x*RAD_TO_DEG, euler_glob.y*RAD_TO_DEG, euler_glob.z*RAD_TO_DEG);
 		
     }
 }
