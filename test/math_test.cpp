@@ -42,9 +42,9 @@ int main(){
     math::quarternion rotation(1,0,0,0), euler_q;
     math::vector euler_v;
     double data[6];
-    data[5] = 10;
-    data[6] = 10;
-    data[7] = 10;
+    data[3] = 10;
+    data[4] = 0;
+    data[5] = 0;
     int i = 0;
     auto then = std::chrono::steady_clock::now();
     auto start = then;
