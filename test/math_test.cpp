@@ -39,31 +39,18 @@ int main(){
 
     std::thread socket_thread(thread);
 
-    mpu6050::init();
-    mpu6050::set_accl_set(mpu6050::accl_range::g_2);
-    mpu6050::set_gyro_set(mpu6050::gyro_range::deg_2000);
-    mpu6050::set_clk(mpu6050::clk::y_gyro);
-    mpu6050::set_fsync(mpu6050::fsync::input_dis);
-    mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_5);
-    mpu6050::wake_up();
-
-    mpu6050::set_offsets(1645, -44, -1357, -25, 17, 9);
-    //mpu6050::set_offsets(1510, -170, -1350, -101, 69, 40);
-    //mpu6050::set_offsets(1392, 18, -1359, -100, 68, 38);
-    //mpu6050::set_offsets(1441, 87, -1340, -197, 149, 78)
-    //mpu6050::set_offsets(1360, -158, -1345, -199, 138, 72);
-    //mpu6050::set_offsets(1377, 161, -1343, -200, 138, 68);
-
     math::quarternion rotation(1,0,0,0), euler_q;
     math::vector euler_v;
     double data[6];
+    data[5] = 10;
+    data[6] = 10;
+    data[7] = 10;
     int i = 0;
     auto then = std::chrono::steady_clock::now();
     auto start = then;
     auto now = std::chrono::steady_clock::now();
     while(1) {
         usleep(10);
-        mpu6050::read(data);
         now = std::chrono::steady_clock::now();
         double dt = std::chrono::duration_cast<std::chrono::milliseconds> (now - then).count() * 0.001;
         t_since = std::chrono::duration_cast<std::chrono::milliseconds> (now - start).count();

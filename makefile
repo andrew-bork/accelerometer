@@ -2,9 +2,9 @@ SRCS:=${wildcard src/*.cpp}
 
 OPTS:= -Iinclude -pthread -lpthread -L../lib -li2c -std=c++11
 
-.PHONY: calib read server client
+.PHONY: calib read server client math_test
 
-all: calib read
+all: calib read 
 
 read: 
 	mkdir -p bin
@@ -20,3 +20,6 @@ server:
 client:
 	mkdir -p bin
 	g++ ./test/client.cpp ${SRCS} -o bin/client ${OPTS}
+test:
+	mkdir -p bin
+	g++ ./test/math_test.cpp ${SRCS} -o bin/client ${OPTS}
