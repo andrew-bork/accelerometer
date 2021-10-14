@@ -57,7 +57,7 @@ int main(){
         then = now;
         euler_v = math::vector(data[3]*dt*DEG_TO_RAD, data[4]*dt*DEG_TO_RAD, data[5]*dt*DEG_TO_RAD);
         euler_q = math::quarternion::fromEulerZYX(euler_v);
-        rotation = euler_q*rotation;
+        rotation = rotation*euler_q;
 
         euler_glob = math::quarternion::toEuler(rotation);		
     }
