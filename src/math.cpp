@@ -109,10 +109,10 @@ math::quarternion math::quarternion::fromEulerZYX(const math::vector& euler){
 math::vector math::quarternion::toEuler(const math::quarternion& q){
     double  sin_p = 2*(q.w*q.y - q.z*q.x);
     if(sin_p >=1){
-    vector res(0, 1.570796326794897, -2*atan2(q.x, q.w));
+    vector res(-2*atan2(q.x, q.w), 1.570796326794897, 0);
     return res;
     }else if(sin_p <= -1){
-    vector res(0, -1.570796326794897, -2 *atan2(q.x, q.w));
+    vector res(2 *atan2(q.x, q.w), -1.570796326794897,  0);
     return res;
     }
     //asin(2*(q.w*q.y - q.z*q.x));
