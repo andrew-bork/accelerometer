@@ -60,7 +60,7 @@ int main(){
     auto start = then;
     auto now = std::chrono::steady_clock::now();
     while(1) {
-        usleep(50);
+        usleep(25);
         mpu6050::read(data);
         now = std::chrono::steady_clock::now();
         double dt = std::chrono::duration_cast<std::chrono::milliseconds> (now - then).count() * 0.001;
