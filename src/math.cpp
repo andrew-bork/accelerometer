@@ -35,18 +35,18 @@ math::quarternion::quarternion(double w, double x, double y, double z, bool unit
 math::quarternion math::quarternion::operator*(const math::quarternion& r){
     quarternion res;
     res.w = w*r.w - x*r.x - y*r.y - z*r.z;
-    res.x = w*r.x + x*r.w + y*r.z - z*r.y;
-    res.y = w*r.y - x*r.z + y*r.w + z*r.x;
-    res.z = w*r.z + x*r.x - y*r.x + z*r.w;
+    res.x = r.w*x + r.x*w + r.y*z - r.z*y;
+    res.y = r.w*y + r.y*w + r.z*x - r.x*z;
+    res.z = r.w*z + r.z*w + r.x*y - r.y*x;
     return res;
 }
 
 math::quarternion math::quarternion::operator+(const math::quarternion& r){
     quarternion res;
-    res.w = w*r.w - x*r.x - y*r.y - z*r.z;
-    res.x = w*r.x + x*r.w + y*r.z - z*r.y;
-    res.y = w*r.y - x*r.z + y*r.w + z*r.x;
-    res.z = w*r.z + x*r.x - y*r.x + z*r.w;
+    res.w = r.w + w;
+    res.x = r.x + x;
+    res.y = r.y + y;
+    res.z = r.z + z;
     return res;
     
 }
