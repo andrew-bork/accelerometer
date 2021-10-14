@@ -59,6 +59,6 @@ int main(){
         euler_q = math::quarternion::fromEulerZYX(euler_v);
         rotation = euler_q*rotation;
 
-        euler_glob = math::quarternion::toEuler(math::quarternion::conjugate(rotation));		
+        euler_glob = math::quarternion::toEuler(rotation);		
     }
 }
