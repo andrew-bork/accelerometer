@@ -23,7 +23,7 @@ void thread() {
 
     sock::socket client(sock::unix, sock::tcp);
 
-    sock::un_connection unix_connection = client.un_connect("/run/drone");
+    sock::un_connection unix_connection = client.un_connect("/run/test");
     char recv[1024];
 
     while(1){
@@ -47,7 +47,8 @@ int main(){
     mpu6050::set_dlpf_bandwidth(mpu6050::dlpf::hz_5);
     mpu6050::wake_up();
 
-    mpu6050::set_offsets(322, -251, -32524, 20, -21, -32);
+    // mpu6050::set_offsets(322, -251, -32524, 20, -21, -32);
+    mpu6050::calibrate(2000);
     //mpu6050::set_offsets(1510, -170, -1350, -101, 69, 40);
     //mpu6050::set_offsets(1392, 18, -1359, -100, 68, 38);
     //mpu6050::set_offsets(1441, 87, -1340, -197, 149, 78)
