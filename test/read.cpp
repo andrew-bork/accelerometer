@@ -23,7 +23,7 @@ void thread() {
 
     sock::socket client(sock::unix, sock::tcp);
 
-    sock::un_connection unix_connection = client.un_connect("/run/test");
+    sock::un_connection unix_connection = client.un_connect("/run/drone");
     char recv[1024];
 
     while(1){
